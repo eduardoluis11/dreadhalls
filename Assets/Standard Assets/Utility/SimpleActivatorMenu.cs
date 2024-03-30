@@ -7,7 +7,10 @@ namespace UnityStandardAssets.Utility
     {
         // An incredibly simple menu which, when given references
         // to gameobjects in the scene
-        public GUIText camSwitchButton;
+        // public GUIText camSwitchButton;
+
+        // BUGFIX: I needed to use "UnityEngine.UI.Text" instead of "GUIText" or "UI.Text" GUIText is obsolete (source: Copilot).
+        public UnityEngine.UI.Text camSwitchButton;
         public GameObject[] objects;
 
 

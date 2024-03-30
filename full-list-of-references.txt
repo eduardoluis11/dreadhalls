@@ -1,0 +1,6 @@
+1) @workspace /fix This is giving me an error in the Unity engine. The error says "Assets\Standard Assets\Utility\ForcedReset.cs(7,27): 
+error CS0246: The type or namespace name 'UI' could not be found (are you missing a using directive or an assembly reference?) ". This is 
+the line that is giving me the error. How can I fix this bug?
+Copilot Chat in Visual Studio Code.
+Selected line 12 from the ForcedReset.cs file.
+Accessed on March 30th, 2024.
