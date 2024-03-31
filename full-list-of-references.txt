@@ -4,3 +4,39 @@ the line that is giving me the error. How can I fix this bug?
 Copilot Chat in Visual Studio Code.
 Selected line 12 from the ForcedReset.cs file.
 Accessed on March 30th, 2024.
+
+2) "/explain I'm making a horror game in Unity where you explore mazes. Apparently, this snippet renders each block from the mazes' floors. Tell me how this snippet renders the floor in my game's mazes."
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 84 to 86 from the LevelGenerator.cs file.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+
+3) "Yes, I want to create some holes in the floor. Could you tell me how to create 3 holes in the floor at random by skipping the generation of some tiles?"
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 84 to 86 from the LevelGenerator.cs file.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+
+4) "/fix This isn't spawning any holes in the ground. As far as i can see, all the tiles in the floor are bing rendered. Could you check what's causing all the tiles in the floor to be rendered, and fix it so that there are ate least 3 holes in my game's floor?"
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 36 to 97 from the LevelGenerator.cs file.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+
+5) "I changed my mind: I want a 95% of chance of spawning holes on the ground. In fact, just to confirm that your code is working, I want to render up to 100 holes in the ground."
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 36 to 97 from the LevelGenerator.cs file.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+
+6) "/fix What this code is actually doing is that it either renders all the floor tiles, or it renders none. That's not what I wanto. What I want are just aa few holes in the floor. In fact, if I put "numberOfHoles" as "100", the floor doesn't render at all, and I fall through the floor. Could you please check the code if it's just rendering the entire floor or not rendering the floor at all if the "randomChance" generator is less than 95%?"
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 36 to 97 from the LevelGenerator.cs file.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+
+7) "/explain Give me a summary of what this entire C# file does to my maze game."
+Copilot Chat from Pycharm: Professional Edition.
+Attached the LevelGenerator.cs file.
+Accessed on March 31st, 2024.
+

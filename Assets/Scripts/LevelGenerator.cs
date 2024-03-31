@@ -33,7 +33,21 @@ public class LevelGenerator : MonoBehaviour {
 	// we use these to dig through our maze and to spawn the pickup at the end
 	private int mazeX = 4, mazeY = 1;
 
-	// Use this for initialization
+	// This is the max number of holes allowed per maze.
+    int numberOfHoles = 4;
+
+    // This keeps track of how many holes have been created.
+    int holesCreated = 0;
+
+	// Use this for initialization.
+	/* This is what, among other things, renders the floor.
+
+	I'll edit this function so that there are at least 3 or 4 holes in the ground.
+
+	TEMPORARY SOLUTION: If I simply say that there's a 5% chance of creating a hole in the floor, without specifying
+	the maximum number of hoels that should be created, then only some holes are created in the floor. This temporarily
+	fixes the bug which either rendered the entire floor, or didn't render the floor at all.
+    */
 	void Start () {
 
 		// initialize map 2D array
@@ -57,8 +71,36 @@ public class LevelGenerator : MonoBehaviour {
 					characterPlaced = true;
 				}
 
-				// create floor and ceiling
-				CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+                // This is a randon number generator that will determine if a hole should be created (source: Copilot)
+                float randomChance = Random.value;
+
+                // This has a 5% chance of creating a hole in the floor if the number of holes created is less than the
+                // max number of holes allowed (source: Copilot.) That is, if the randomChance variable gives a number
+                // of less than 0.05, this will create a hole.
+                //                if (randomChance < 0.95f && holesCreated < numberOfHoles) {
+                //                    // This will add 1 to the counter that keeps track of the total number of holes created.
+                //                    holesCreated++;
+
+                // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
+                // THIS IS A TEMPORARY BUG FIX. I NEED TO LIMIT THE NUMBER OF HOLES CREATED LATER.
+                if (randomChance < 0.05f) {
+                    // This will add 1 to the counter that keeps track of the total number of holes created.
+                    holesCreated++;
+                } else {
+                    // This renders the floor by rendering a block for a tile for the floor.
+                    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+                }
+
+                //                // Instead of an "else", I will use another "if" to render the remaining tiles for the floor.
+                //                if (holesCreated < numberOfHoles || randomChance >= 0.95f) {
+                //                    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+                //                }
+
+
+
+                //				// create floor and ceiling.
+                //				/* I THINK this is the line of code I need to edit to spawn the holes in the floor. */
+                //				CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
 
 				if (generateRoof) {
 					CreateChildPrefab(ceilingPrefab, wallsParent, x, 4, z);
