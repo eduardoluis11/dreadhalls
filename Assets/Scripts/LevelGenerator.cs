@@ -47,6 +47,12 @@ public class LevelGenerator : MonoBehaviour {
 	TEMPORARY SOLUTION: If I simply say that there's a 5% chance of creating a hole in the floor, without specifying
 	the maximum number of hoels that should be created, then only some holes are created in the floor. This temporarily
 	fixes the bug which either rendered the entire floor, or didn't render the floor at all.
+
+	I'm now specifying the maximum number of holes that should be created in the "if" statement that creates the hole
+	in the floor 5% of the time. That is, I'm using "&& holesCreated < 4" instead of "&& holesCreated < numberOfHoles",
+	and now no more than 4 holes are created in the floor. HOWEVER, sometimes, only 2 or 3 hole are created per maze.
+	I wish I could guarantee that there are at least 4 holes per maze. Maybe increasing the chances of creating a hole
+	in the floor to a percent higher than 5% should do the trick, although it's not the most elegant solution.
     */
 	void Start () {
 
@@ -82,8 +88,9 @@ public class LevelGenerator : MonoBehaviour {
                 //                    holesCreated++;
 
                 // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
-                // THIS IS A TEMPORARY BUG FIX. I NEED TO LIMIT THE NUMBER OF HOLES CREATED LATER.
-                if (randomChance < 0.05f) {
+                // I'm specifying right here the maximum number of holes to prevent the bug that either renders the
+                // entire floor, or doesn't render the floor at all.
+                if (randomChance < 0.05f && holesCreated < 4) {
                     // This will add 1 to the counter that keeps track of the total number of holes created.
                     holesCreated++;
                 } else {

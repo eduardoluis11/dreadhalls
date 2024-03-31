@@ -408,4 +408,54 @@ The `GenerateMazeData` method generates the 2D boolean array representing the ma
 
 The `CreateChildPrefab` method is a helper method that instantiates a prefab at a given position and makes it a child of a given parent object. This is used to create the floor, walls, and ceiling of the maze, as well as the pickup item.
 
+===============================================================================
 
+/fix Look, this selected code does more or less what I want: it renders some holes in the floor of my game. This fixed the bug that either rendered the entire floor, or didn't render the floor at all. Well, now fix this so that only up to 4 holes can be created on the floor. Currently, my code can generate more than 4 holes in the ground.
+
+
+
+Selected lines 74 to 92 from the `LevelGenerator.cs` file.
+Attached the LevelGenerator.cs file.
+
+
+
+**Problem 1: Uncontrolled number of holes in the floor**
+
+The current logic for creating holes in the floor does not limit the number of holes to 4. The `randomChance` variable is used to determine whether a hole should be created, but there's no control over the total number of holes created. This can result in more than 4 holes being created in the floor.
+
+Here's how you can fix this:
+
+Before:
+```csharp
+if (randomChance < 0.05f) {
+    holesCreated++;
+} else {
+    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+}
+```
+
+After:
+```csharp
+if (randomChance < 0.05f && holesCreated < 4) {
+    holesCreated++;
+} else {
+    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+}
+```
+
+Here's the corrected version of your code:
+
+```csharp
+// This is a random number generator that will determine if a hole should be created
+float randomChance = Random.value;
+
+// This has a 5% chance of creating a hole in the floor if the number of holes created is less than 4.
+if (randomChance < 0.05f && holesCreated < 4) {
+    // This will add 1 to the counter that keeps track of the total number of holes created.
+    holesCreated++;
+} else {
+    // This renders the floor by rendering a block for a tile for the floor.
+    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+}
+```
+This should now correctly create up to 4 holes in the floor of your maze, while still creating floor tiles for the rest of the maze.
