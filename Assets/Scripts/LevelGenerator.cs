@@ -53,6 +53,13 @@ public class LevelGenerator : MonoBehaviour {
 	and now no more than 4 holes are created in the floor. HOWEVER, sometimes, only 2 or 3 hole are created per maze.
 	I wish I could guarantee that there are at least 4 holes per maze. Maybe increasing the chances of creating a hole
 	in the floor to a percent higher than 5% should do the trick, although it's not the most elegant solution.
+
+	I added a console message showing the number of holes rendered per maze to show the player that, indeed, there
+	are 4 holes rendered per level. It's sometimes hard to find all the 4 holes in a single maze because it's
+	easy to get lost in the mazes, so it's hard to find all of the holes in a single level. However, I explored like
+	5 mazes, and the debug console always ended up talling me that at least 4 holes were created in the floor in
+	each maze / level. So please, check the console in your unity editor to make sure that 4 holes were rendered
+	in the current maze.
     */
 	void Start () {
 
@@ -93,6 +100,9 @@ public class LevelGenerator : MonoBehaviour {
                 if (randomChance < 0.05f && holesCreated < 4) {
                     // This will add 1 to the counter that keeps track of the total number of holes created.
                     holesCreated++;
+
+                    // DEBUG: This will print the number of holes created to the console
+                    Debug.Log("A hole was created. Total number of holes: " + holesCreated);
                 } else {
                     // This renders the floor by rendering a block for a tile for the floor.
                     CreateChildPrefab(floorPrefab, floorParent, x, 0, z);

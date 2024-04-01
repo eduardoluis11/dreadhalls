@@ -46,3 +46,9 @@ Selected lines 74 to 92 from the `LevelGenerator.cs` file.
 Attached the LevelGenerator.cs file.
 Accessed on March 31st, 2024.
 
+9) "Thanks. Now, I want to print a console message each time that the "holesCreated" variable goes up. Add a snippet in here that prints a console message with the current number being stored in the "holesCreated" variable. Also, how do I read console messages in Unity?"
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 93 to 96 from the `LevelGenerator.cs` file.
+Attached the LevelGenerator.cs file.
+Accessed on April 1st, 2024.
+

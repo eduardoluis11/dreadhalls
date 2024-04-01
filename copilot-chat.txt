@@ -459,3 +459,35 @@ if (randomChance < 0.05f && holesCreated < 4) {
 }
 ```
 This should now correctly create up to 4 holes in the floor of your maze, while still creating floor tiles for the rest of the maze.
+
+=====================================================================================================================
+
+"Thanks. Now, I want to print a console message each time that the "holesCreated" variable goes up. Add a snippet in here that prints a console message with the current number being stored in the "holesCreated" variable. Also, how do I read console messages in Unity?"
+Copilot Chat from Pycharm: Professional Edition.
+Selected lines 93 to 96 from the `LevelGenerator.cs` file.
+Attached the LevelGenerator.cs file.
+
+
+
+To print a console message each time the `holesCreated` variable increments, you can use the `Debug.Log()` function in Unity. This function prints a message to the Unity Console, which can be viewed by clicking on the "Console" tab in the Unity editor.
+
+Here's how you can modify your code:
+
+```csharp
+if (randomChance < 0.05f && holesCreated < 4) {
+    // This will add 1 to the counter that keeps track of the total number of holes created.
+    holesCreated++;
+    // Print a message to the console
+    Debug.Log("A hole was created. Total number of holes: " + holesCreated);
+}
+```
+
+To read console messages in Unity, you can follow these steps:
+
+1. Open your project in the Unity editor.
+2. Click on the "Window" menu in the top menu bar.
+3. Select "General" and then "Console". This will open the Console window.
+4. The Console window will display a list of messages. Each message includes a timestamp, a description, and potentially a stack trace. You can click on a message to get more information about it.
+
+======================================================================================
+
