@@ -87,6 +87,12 @@ public class LevelGenerator : MonoBehaviour {
 		spawned below the walls. And I want the holes to be spawned below the floor of the maze's roads, NOT beneath
 		the walls.
 
+        BUGFIX: YES! I fixed 2 bugs in 1 fell swoop! I fixed both the bug that spawned a hole right beneath the player
+        character, and fixed the bug that rendered 5 holes instead of 4. How? By putting the hole spawning snippet
+        within the same “else” statement that spawned the player character. That is, I modified the “else if” by just
+        an “else”, and I inserted the chunk that said “if character has not been placed” within that “else” statement.
+        Then, right beneath the “if character has not been placed” snippet of code, I placed the hole-spawning snippet.
+
 		*/
 		for (int z = 0; z < mazeSize; z++) {
 			for (int x = 0; x < mazeSize; x++) {
@@ -96,20 +102,35 @@ public class LevelGenerator : MonoBehaviour {
 					CreateChildPrefab(wallPrefab, wallsParent, x, 3, z);
 
                 // This places the player in the maze on the first floor tile that was "digged" through.
-				} else if (!characterPlaced) {
+                //				} else if (!characterPlaced) {
+
+                // If I have "digged" through the maze, that is, if I have an instance of a "false" value in (mapData[z, x]),
+                // I have a floor tile that has been "digged", that is, I have a floor tile of the maze's road. So, I
+                // will do 2 things here: 1) Spawn the player. 2) Spawn the holes in the floor, so that they don't spawn
+                // beneath the walls. THIS FIXED THE BUG that spawned 5 holes and spawned a hole right beneath the
+                // player.
+                } else {
+
+                    // This renders and spawns the player character in the maze.
+                    if (!characterPlaced) {
 					
-					// place the character controller on the first empty wall we generate
-					characterController.transform.SetPositionAndRotation(
-						new Vector3(x, 1, z), Quaternion.identity
-					);
+                        // place the character controller on the first empty wall we generate
+                        characterController.transform.SetPositionAndRotation(
+                            new Vector3(x, 1, z), Quaternion.identity
+                        );
 
-					// flag as placed so we never consider placing again
-					characterPlaced = true;
+                        // flag as placed so we never consider placing again
+                        characterPlaced = true;
+					}
 
-                // }
-                // This will spawn the holes in the floor, BUT ONLY BENEATH THE FLOOR, NOT BENEATH THE WALLS
-                // (source: Copilot.)
-				} else {
+
+
+                    // }
+                    // This will spawn the holes in the floor, BUT ONLY BENEATH THE FLOOR, NOT BENEATH THE WALLS
+                    // (source: Copilot.)
+                    // BUG: Now, there are 5 holes rendered instead of 4, and there's always a hole right where the player
+                    // is rendered.
+                    //				} else {
 
                     // This is a randon number generator that will determine if a hole should be created (source: Copilot)
                     float randomChance = Random.value;
@@ -121,21 +142,31 @@ public class LevelGenerator : MonoBehaviour {
                     //                    // This will add 1 to the counter that keeps track of the total number of holes created.
                     //                    holesCreated++;
 
-                    // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
-                    // I'm specifying right here the maximum number of holes to prevent the bug that either renders the
-                    // entire floor, or doesn't render the floor at all.
-                    if (randomChance < 0.05f && holesCreated < 4) {
-                        // This will add 1 to the counter that keeps track of the total number of holes created.
-                        holesCreated++;
+                    // This will prevent holes from being spawned beneath the player's initial position (source:
+                    // Copilot.)
 
-                        // DEBUG: This will print the number of holes created to the console
-                        Debug.Log("A hole was created. Total number of holes: " + holesCreated);
-                    } else {
-                        // This renders the floor by rendering a block for a tile for the floor.
-                        CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
-                    }
+                    //                    // BUG: This just creates a giant L-shaped hole.
+                    //                    if (x != characterController.transform.position.x && z != characterController.transform.position.z) {
 
-				}   // End of the code that spawns the holes in the floor, NOT beneath the walls.
+                    //                    // BUGGY: This doesn't fix the bug in which a hole is spawned right where the player is spawned.
+                    //                    if (x != characterController.transform.position.x && z != characterController.transform.position.z) {
+                        // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
+                        // I'm specifying right here the maximum number of holes to prevent the bug that either renders the
+                        // entire floor, or doesn't render the floor at all.
+                        if (holesCreated < 4 && randomChance < 0.05f) {
+                            // This will add 1 to the counter that keeps track of the total number of holes created.
+                            holesCreated++;
+
+                            // DEBUG: This will print the number of holes created to the console
+                            Debug.Log("A hole was created. Total number of holes: " + holesCreated);
+                        } else {
+                            // This renders the floor by rendering a block for a tile for the floor.
+                            CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+                        }
+                    //                    }
+
+				}   // End of the code that spawns the holes in the floor, NOT beneath the walls, and that spawns the
+				// player.
 
 
 
