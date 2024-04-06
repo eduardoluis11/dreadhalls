@@ -52,3 +52,12 @@ Selected lines 93 to 96 from the `LevelGenerator.cs` file.
 Attached the LevelGenerator.cs file.
 Accessed on April 1st, 2024.
 
+10) "Well, I have a bug in my gane in which, sometimes, holes are spawned beneath the walls. The holes should NEVER be
+spawned benath the walls. The need to be beneath the floor tiles of the maze. That is, after the highlighted snippet
+"crawls" through the walls to create the maze whe you will move around, the holes should only be created on the maze
+that was created by this "crawler". Well, is there a way to make sure that the holes on the floor only spawn on the
+maze roads that are created by this "crawler", so that the holes are never spawned beneath any walls?"
+Highlighted lines 148-175 from the `LevelGenerator.cs` file.
+Attached the LevelGenerator.cs file.
+Accessed on April 6th, 2024.
+

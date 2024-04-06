@@ -57,7 +57,7 @@ public class LevelGenerator : MonoBehaviour {
 	I added a console message showing the number of holes rendered per maze to show the player that, indeed, there
 	are 4 holes rendered per level. It's sometimes hard to find all the 4 holes in a single maze because it's
 	easy to get lost in the mazes, so it's hard to find all of the holes in a single level. However, I explored like
-	5 mazes, and the debug console always ended up talling me that at least 4 holes were created in the floor in
+	5 mazes, and the debug console always ended up telling me that at least 4 holes were created in the floor in
 	each maze / level. So please, check the console in your unity editor to make sure that 4 holes were rendered
 	in the current maze.
     */
@@ -67,12 +67,35 @@ public class LevelGenerator : MonoBehaviour {
 		mapData = GenerateMazeData();
 
 		// create actual maze blocks from maze boolean data
+		/* This creates the walls of the maze.
+
+		This pretty much creates a cube for the entire level. That is, this DOESN'T CREATE a maze: it creates a 3D
+		"cube".
+
+		I will have to "dig" through this cube to create the maze. That is, I will have to eliminate walls to create
+		the roads in which the player will move around.
+
+		How is the "cube" for the level created? By creating 3 layers of cubes one on top of the other. And how are
+		these layers of cubes created? with the following "if" statement:
+		    if (mapData[z, x]) {
+					CreateChildPrefab(wallPrefab, wallsParent, x, 1, z);
+					CreateChildPrefab(wallPrefab, wallsParent, x, 2, z);
+					CreateChildPrefab(wallPrefab, wallsParent, x, 3, z);
+				}
+
+		So, I SHOULDN'T spawn the holes on the floor inside that "if" statement. Otherwise, the holes would be
+		spawned below the walls. And I want the holes to be spawned below the floor of the maze's roads, NOT beneath
+		the walls.
+
+		*/
 		for (int z = 0; z < mazeSize; z++) {
 			for (int x = 0; x < mazeSize; x++) {
 				if (mapData[z, x]) {
 					CreateChildPrefab(wallPrefab, wallsParent, x, 1, z);
 					CreateChildPrefab(wallPrefab, wallsParent, x, 2, z);
 					CreateChildPrefab(wallPrefab, wallsParent, x, 3, z);
+
+                // This places the player in the maze on the first floor tile that was "digged" through.
 				} else if (!characterPlaced) {
 					
 					// place the character controller on the first empty wall we generate
@@ -82,31 +105,41 @@ public class LevelGenerator : MonoBehaviour {
 
 					// flag as placed so we never consider placing again
 					characterPlaced = true;
-				}
 
-                // This is a randon number generator that will determine if a hole should be created (source: Copilot)
-                float randomChance = Random.value;
+                // }
+                // This will spawn the holes in the floor, BUT ONLY BENEATH THE FLOOR, NOT BENEATH THE WALLS
+                // (source: Copilot.)
+				} else {
 
-                // This has a 5% chance of creating a hole in the floor if the number of holes created is less than the
-                // max number of holes allowed (source: Copilot.) That is, if the randomChance variable gives a number
-                // of less than 0.05, this will create a hole.
-                //                if (randomChance < 0.95f && holesCreated < numberOfHoles) {
-                //                    // This will add 1 to the counter that keeps track of the total number of holes created.
-                //                    holesCreated++;
+                    // This is a randon number generator that will determine if a hole should be created (source: Copilot)
+                    float randomChance = Random.value;
 
-                // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
-                // I'm specifying right here the maximum number of holes to prevent the bug that either renders the
-                // entire floor, or doesn't render the floor at all.
-                if (randomChance < 0.05f && holesCreated < 4) {
-                    // This will add 1 to the counter that keeps track of the total number of holes created.
-                    holesCreated++;
+                    // This has a 5% chance of creating a hole in the floor if the number of holes created is less than the
+                    // max number of holes allowed (source: Copilot.) That is, if the randomChance variable gives a number
+                    // of less than 0.05, this will create a hole.
+                    //                if (randomChance < 0.95f && holesCreated < numberOfHoles) {
+                    //                    // This will add 1 to the counter that keeps track of the total number of holes created.
+                    //                    holesCreated++;
 
-                    // DEBUG: This will print the number of holes created to the console
-                    Debug.Log("A hole was created. Total number of holes: " + holesCreated);
-                } else {
-                    // This renders the floor by rendering a block for a tile for the floor.
-                    CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
-                }
+                    // This has a 5% chance of creating a hole in the floor, regardless of the number of holes created.
+                    // I'm specifying right here the maximum number of holes to prevent the bug that either renders the
+                    // entire floor, or doesn't render the floor at all.
+                    if (randomChance < 0.05f && holesCreated < 4) {
+                        // This will add 1 to the counter that keeps track of the total number of holes created.
+                        holesCreated++;
+
+                        // DEBUG: This will print the number of holes created to the console
+                        Debug.Log("A hole was created. Total number of holes: " + holesCreated);
+                    } else {
+                        // This renders the floor by rendering a block for a tile for the floor.
+                        CreateChildPrefab(floorPrefab, floorParent, x, 0, z);
+                    }
+
+				}   // End of the code that spawns the holes in the floor, NOT beneath the walls.
+
+
+
+
 
                 //                // Instead of an "else", I will use another "if" to render the remaining tiles for the floor.
                 //                if (holesCreated < numberOfHoles || randomChance >= 0.95f) {
@@ -145,7 +178,8 @@ public class LevelGenerator : MonoBehaviour {
 		// counter to ensure we consume a minimum number of tiles
 		int tilesConsumed = 0;
 
-		// iterate our random crawler, clearing out walls and straying from edges
+		// iterate our random crawler, clearing out walls and straying from edges.
+		// This "digs" though the walls to create the maze in which you will move around.
 		while (tilesConsumed < tilesToRemove) {
 			
 			// directions we will be moving along each axis; one must always be 0
@@ -171,7 +205,7 @@ public class LevelGenerator : MonoBehaviour {
 					tilesConsumed++;
 				}
 			}
-		}
+		}   // End of the code that generates the maze by "digging" through the walls.
 
 		return data;
 	}
