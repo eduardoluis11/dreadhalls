@@ -58,7 +58,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        // Update is called once per frame
+        // Update is called once per frame.
+        /* This will be detected mid-game.
+
+        This is the snippet that I need to modify to detect the player's y position to detect if the player fell through
+        a hole. If they did, I will render the "Game Over" message in a new Scene (source: Copilot.)
+        */
         private void Update()
         {
             RotateView();
@@ -81,6 +86,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            // If the player's y position is less than -10, that is, if they fall, a message saying "Game Over" will
+            // show up (source: Copilot.)
+            if (m_Camera.transform.position.y < -10)
+            {
+                Debug.Log("Game Over");
+            }
         }
 
 

@@ -77,3 +77,20 @@ Highlighted lines 91-164 from the `LevelGenerator.cs` file.
 Attached the LevelGenerator.cs file.
 Accessed on April 6th, 2024.
 
+14) Colton's "Dreadhalls" Lecture.
+Youtube video: https://www.youtube.com/watch?v=BORUaRbwOaI
+Accessed on April 6th, 2024.
+
+15) What does this line of code do in this script?
+Copilot Chat from Pycharm: Professional Edition.
+Highlighted line 39 from the `FirstPersonController.cs` file.
+Attached the FirstPersonController.cs file.
+Accessed on April 6th, 2024.
+
+16) Well, is there a way to modify this script so that, if the y position of the camera mid-game is less than -10, that a console message that says "Game Over" could show up? That is, could you put a similar snippet to this one on this script?: " // DEBUG: This will send the player to the next level if the fall through a hole void Update() {<pre> // If the player falls below the height of -10. // BUGGY: this didn't work. if (characterController.transform.position.y < -10) { // DEBUG: The player will be sent to the next level (I will later change this to a "Game Over" screen). SceneManager.LoadScene("Play"); // DEBUG: this indicates that you fell through a hole Debug.Log("You fell through a hole. Game Over"); } }".
+Attached the FirstPersonController.cs file.
+Accessed on April 6th, 2024.
+
+
+
+
