@@ -91,6 +91,11 @@ Accessed on April 6th, 2024.
 Attached the FirstPersonController.cs file.
 Accessed on April 6th, 2024.
 
+17) /fix I tried using the highlighted code to make the player to be sent to the "GameOver" scene if their y position is less than -10, but Unity didn't let me compile the game. The error message that I got was "Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs(102,17): error CS0103: The name 'SceneManager' does not exist in the current context". How can I make the player go to the "GameOver" scene if their y position is below -10?
+Highlighted lines 102-104 from the `FirstPersonController.cs` file.
+Attached the FirstPersonController.cs file.
+Accessed on April 7th, 2024.
+
 
 
 

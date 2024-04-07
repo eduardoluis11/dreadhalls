@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement; // This will let me change to the "Game Over" Scene (source: Copilot)
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -63,6 +64,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         This is the snippet that I need to modify to detect the player's y position to detect if the player fell through
         a hole. If they did, I will render the "Game Over" message in a new Scene (source: Copilot.)
+
+        Inside the "if" statement that detects if the player has fallen through a hole, I will add the condition that
+        will send the player to the "Game Over" scene. Let's see if it detects that there's a scene called "GameOver",
+        or if I need to first attach a script to the "FirstPersonController" object to be able to detect the
+        "Game Over" scene.
         */
         private void Update()
         {
@@ -92,6 +98,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_Camera.transform.position.y < -10)
             {
                 Debug.Log("Game Over");
+
+                // Let's see if this makes the player go to the "Game Over" scene.
+                // BUG: this doesn't let me compile the game in Unity.
+                SceneManager.LoadScene("GameOver");
             }
         }
 

@@ -1034,3 +1034,73 @@ private void Update()
 
 In this modification, `m_Camera.transform.position.y < -10` checks if the y position of the camera is less than -10. If it is, `Debug.Log("Game Over")` logs a "Game Over" message to the console. This check is performed every frame because it's inside the `Update` method.
 
+====================================================================================================================
+
+/fix I tried using the highlighted code to make the player to be sent to the "GameOver" scene if their y position is less than -10, but Unity didn't let me compile the game. The error message that I got was "Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs(102,17): error CS0103: The name 'SceneManager' does not exist in the current context". How can I make the player go to the "GameOver" scene if their y position is below -10?
+
+**Problem 1: Missing namespace for SceneManager**
+
+The error message "The name 'SceneManager' does not exist in the current context" indicates that the `SceneManager` class is not recognized in the current context. This is because the `SceneManager` class is part of the `UnityEngine.SceneManagement` namespace, which is not currently being used in your script.
+
+To fix this, you need to add a `using` statement at the top of your script to include the `UnityEngine.SceneManagement` namespace.
+
+Here's how you can modify your script:
+
+Before:
+```csharp
+using System;
+using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Utility;
+using Random = UnityEngine.Random;
+```
+
+After:
+```csharp
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement; // Add this line
+using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Utility;
+using Random = UnityEngine.Random;
+```
+
+Now, `SceneManager.LoadScene("GameOver")` should be recognized and the game should compile successfully.
+
+Here's the completely fixed version of the `FirstPersonController.cs` script:
+
+```csharp
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement; // Add this line
+using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Utility;
+using Random = UnityEngine.Random;
+
+namespace UnityStandardAssets.Characters.FirstPerson
+{
+    // ... rest of the script ...
+
+    private void Update()
+    {
+        // ... rest of the method ...
+
+        // If the player's y position is less than -10, that is, if they fall, a message saying "Game Over" will
+        // show up (source: Copilot.)
+        if (m_Camera.transform.position.y < -10)
+        {
+            Debug.Log("Game Over");
+
+            // Let's see if this makes the player go to the "Game Over" scene.
+            SceneManager.LoadScene("GameOver"); // This line should now compile successfully
+        }
+    }
+
+    // ... rest of the script ...
+}
+```
+
+Remember to replace the `... rest of the script ...` and `... rest of the method ...` comments with the rest of your script and method, respectively.
+
+====================================================================================================================
+
