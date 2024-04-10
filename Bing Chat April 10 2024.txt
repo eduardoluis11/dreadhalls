@@ -1,0 +1,26 @@
+## You
+I'm making a game dev homework assignment in Unity. It's asking me this: "Another fairly easy piece to put together, though you should probably create a MonoBehaviour for this one (something like DespawnOnHeight)! " What does "MonoBehaviour" mean in this context?
+## Copilot
+Certainly! In the context of Unity game development, a MonoBehaviour is a fundamental class that many Unity scripts derive from. Let's break it down:
+- Definition:
+    - A MonoBehaviour is a base class provided by Unity.
+    - It offers essential life cycle functions that simplify game development within the Unity engine.
+    - MonoBehaviours always exist as components of a GameObject.
+    - You can create instances of MonoBehaviours by attaching them to a GameObject using GameObject.AddComponent.
+- Life Cycle Functions:
+    - MonoBehaviours provide several built-in functions that Unity automatically executes at specific points during the game loop. These functions include:
+        - Awake(): Called when an enabled script instance is being loaded.
+        - Start(): Executed once when the script is initialized.
+        - Update(): Invoked every frame to handle continuous updates.
+        - FixedUpdate(): Frame-rate independent message for physics calculations.
+        - LateUpdate(): Called every frame, if the Behaviour is enabled.
+        - OnGUI(): Used for GUI rendering.
+        - OnDisable(): Triggered when the script is disabled.
+        - OnEnable(): Invoked when the script is enabled.
+- Automatic Execution:
+    - Unity takes care of executing these functions automatically based on the game state.
+    - For example, when you attach a script with a MonoBehaviour to a GameObject, Unity ensures that the appropriate functions are called at the right time.
+- Remember:
+    - If you're creating a script that interacts with Unity's game loop or needs to respond to specific events, make it inherit from MonoBehaviour.
+    - If your script doesn't need to be tied to a GameObject, consider using ScriptableObject instead.
+In your case, when creating a DespawnOnHeight script, implementing it as a MonoBehaviour is a good choice. Unity will handle the execution of relevant functions for you! 🎮👾.
