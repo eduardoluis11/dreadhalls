@@ -93,16 +93,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-            // If the player's y position is less than -10, that is, if they fall, a message saying "Game Over" will
-            // show up (source: Copilot.)
-            if (m_Camera.transform.position.y < -10)
-            {
-                Debug.Log("Game Over");
-
-                // Let's see if this makes the player go to the "Game Over" scene.
-                // BUG: this doesn't let me compile the game in Unity.
-                SceneManager.LoadScene("GameOver");
-            }
+            //            // If the player's y position is less than -10, that is, if they fall, a message saying "Game Over" will
+            //            // show up (source: Copilot.)
+            //            // I SHOULDN'T DO THAT HERE. I NEEDED TO CREATE A SCRIPT AND USE MonoBEHAVIOUR To send the character
+            //            // to the Game Over SCENE!
+            //            if (m_Camera.transform.position.y < -10)
+            //            {
+            //                Debug.Log("Game Over");
+            //
+            //                // Let's see if this makes the player go to the "Game Over" scene.
+            //                // BUG: this doesn't let me compile the game in Unity.
+            //                SceneManager.LoadScene("GameOver");
+            //            }
         }
 
 

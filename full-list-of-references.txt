@@ -101,6 +101,18 @@ Bing.
 Link: https://sl.bing.net/gFJI4nWAeEC
 Accessed on April 10th, 2024.
 
+19) /explain what does this line of code do? Also, tell me what the "gameObject" variable does, and which otehr properties it has besides ".tag".
+
+Highlighted line 15 from the `GrabPickups.cs` file.
+Attached the GrabPickups.cs file.
+Accessed on April 11th, 2024.
+
+20) Is there a way to modify this snippet using something like "if (gameObject.transform)" to detect if that object has falling below the -10 coordinate in the y axis?
+
+Highlighted line 15 from the `GrabPickups.cs` file.
+Attached the GrabPickups.cs file.
+Accessed on April 11th, 2024.
+
 
 
 
