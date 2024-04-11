@@ -15,14 +15,15 @@ it would send you to the next level when you fall through a hole (this is just f
 it so that, if you fall through a hole, you will get a “Game over” screen).
 
 I added a MonoBehaviour script to detect if a Game Object from the Unity Editor falls below the -10 coordinate in the y
-axis. If the Game Object falls below that position, thep layer will be sent to the Game Over Scen. And which Game
+axis. If the Game Object falls below that position, the player will be sent to the Game Over Scene. And which Game
 Object wil I detect? Tha player character! How? I will go to the Player Character object in the Unity Editor, and I will
 drag and drop the FallThroughHole.cs script into the Player Character object. This way, this script will be attached
 to the Player Character object, and will detect the Player Character as the Game Object for this script. That way,
-if the Player Character falls below the -10 coordinate in the y axis, you will be sent to the Game Over Scene.
+if the Player Character falls below the -10 coordinate in the y axis, you will be sent to the Game Over Scene (source:
+Copilot).
 */
 
-public class FallThroughHole : MonoBehaviour {
+public class DespawnOnHeight : MonoBehaviour {
 
     // // This stores the player's character data. In the Unity Editor, I need to drag the Playable Character object (from
     // // the left Side Navbar) into this variable.
