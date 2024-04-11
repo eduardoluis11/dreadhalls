@@ -113,6 +113,12 @@ Highlighted line 15 from the `GrabPickups.cs` file.
 Attached the GrabPickups.cs file.
 Accessed on April 11th, 2024.
 
+21) Thanks. Now, modify this snippet so that, if the current scene is "GameOver" and the player presses "Submit", to send them to the "Title" Scene; otherwise, if the current scene is "Title" and the player presses "Submit", change the scene to the "Play" scene.
+Copilot Chat from Pycharm: Professional Edition.
+Highlighted lines 13-18 from the `LoadSceneOnInput.cs` file.
+Attached the LoadSceneOnInput.cs file.
+Accessed on April 11th, 2024.
+
 
 
 
