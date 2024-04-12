@@ -1279,3 +1279,109 @@ in the GrabPickups.cs file.
 
 Accessed on April 12th, 2024.
 
+====================================================================================================================
+
+/fix This snippet is giving me a bug: instead of increasing by one, it sometimes increases by 2. I'll explain: this script's functionality is that, if the player grabs a purple coin, this will reset the entire level to make it seem as if you went to the next level. Well, to do that, it simply loeads the "Play" scene when the player collides with a pickup. Well, right after doing that, I'm increasing a counter variable called "currentLevel" right after reloading the "Play" scene after picking up the pickup. That counter is originally declared with the value of "1" so that it starts at 1. Sometimes, it correctly goes from "1" to "2" when I get from the first level to the 2nd level, and sometimes goes from "2" to "3" when I go to the 3rd level. However, I sometimes get that, when I get to the 2nd level, the console prints me a message that I'm on level "3" instead of "2". Also, simetimes, if I go from level 2 to level 3, the consoel prints me "4" instead of "3". Why is this happening? And how can I make sure that this counter is ALWAYS being increased by 1 when I load the "Play" scene after picking up a pickup?
+
+**Problem 1: Counter Increasing More Than Expected**
+
+The issue you're experiencing is likely due to the fact that the `OnControllerColliderHit` function can be called multiple times if the player's character continues to collide with the pickup object. This can happen if the scene loading doesn't happen immediately and the player's character is still in contact with the pickup object in the next frame, causing the `OnControllerColliderHit` function to be called again and incrementing the `currentLevel` counter more than once.
+
+To fix this, you can disable or destroy the pickup object as soon as it's hit, so it can't trigger multiple collisions. Here's how you can modify your `OnControllerColliderHit` function:
+
+```csharp
+void OnControllerColliderHit(ControllerColliderHit hit) {
+    if (hit.gameObject.tag == "Pickup") {
+        pickupSoundSource.Play();
+        hit.gameObject.SetActive(false); // Disable the pickup object
+        SceneManager.LoadScene("Play");
+        currentLevel += 1;
+    }
+}
+```
+
+In this modification, `hit.gameObject.SetActive(false);` is used to disable the pickup object as soon as it's hit, preventing it from triggering multiple collisions.
+
+Here's the complete fixed version of your code:
+
+```csharp
+public class GrabPickups : MonoBehaviour {
+
+    private AudioSource pickupSoundSource;
+    private static int currentLevel = 1;
+
+    void Awake() {
+        pickupSoundSource = DontDestroy.instance.GetComponents<AudioSource>()[1];
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (hit.gameObject.tag == "Pickup") {
+            pickupSoundSource.Play();
+            hit.gameObject.SetActive(false); // Disable the pickup object
+            SceneManager.LoadScene("Play");
+            currentLevel += 1;
+        }
+    }
+
+    void Update() {
+        Debug.Log("Current Level: " + currentLevel);
+    }
+}
+```
+
+This should ensure that your `currentLevel` counter is always increased by 1 when you load the "Play" scene after picking up a pickup.
+
+====================================================================================================================
+
+That sounds nice but, once I get to the next level, I need the pickup to be enabled again. Will the pickup in the next level be enabled with the snippet that you just gave me?
+
+Yes, the pickup in the next level will be enabled again. When you call `SceneManager.LoadScene("Play");`, it reloads the "Play" scene from scratch, which includes re-enabling all game objects that were originally active in the scene. This means that the pickup object, which was disabled in the previous level, will be active again in the new level.
+
+====================================================================================================================
+
+Although, for the first levels, the solution that you gave me worked, during my last test, if I went from level 4 to level 5, the console was printing me that I was on level "6" instead of "5". Could you make another solution to make sure that the currentLevel variable always increases by 1 when I touch the pickup?
+
+The issue you're experiencing might be due to the fact that the `OnControllerColliderHit` function can be called multiple times if the player's character continues to collide with the pickup object. This can happen if the scene loading doesn't happen immediately and the player's character is still in contact with the pickup object in the next frame, causing the `OnControllerColliderHit` function to be called again and incrementing the `currentLevel` counter more than once.
+
+A possible solution to this problem is to use a boolean flag to ensure that the level counter is only incremented once per pickup. Here's how you can modify your `OnControllerColliderHit` function:
+
+```csharp
+private bool levelIncreased = false;
+
+void OnControllerColliderHit(ControllerColliderHit hit) {
+    if (hit.gameObject.tag == "Pickup" && !levelIncreased) {
+        pickupSoundSource.Play();
+        hit.gameObject.SetActive(false);
+        SceneManager.LoadScene("Play");
+        currentLevel += 1;
+        levelIncreased = true;
+    }
+}
+```
+
+And then, in the `Awake` function, you reset the `levelIncreased` flag:
+
+```csharp
+void Awake() {
+    pickupSoundSource = DontDestroy.instance.GetComponents<AudioSource>()[1];
+    levelIncreased = false;
+}
+```
+
+This way, the `currentLevel` counter will only be increased once per pickup, even if the `OnControllerColliderHit` function is called multiple times.
+
+====================================================================================================================
+
+"levelIncreased = false;"
+
+Copilot from Visual Studio Code.
+
+A line of code  was generated by Copilot's chat on VS Code. To activate that, I went to VS Code, and the variable
+"levelIncreased" was being selected on line 61 from
+GrabPickups.cs. So, I clicked on the "levelIncreased" variable, and I clicked in "Quick Fix" -> "Use Copilot",
+and VS Code's copilot generated the "private bool levelIncreased;" line of code outside of the Awake() function
+in the GrabPickups.cs file.
+
+Accessed on April 12th, 2024.
+
+=================================================================================================================

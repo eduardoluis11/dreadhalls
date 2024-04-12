@@ -49,8 +49,16 @@ public class GrabPickups : MonoBehaviour {
 	// I will declare the counter which will keep track of the current level of the game (source: VS Code's Copilot)
 	private static int currentLevel = 1;
 
+	// This declares a booolean that will prevent the level counter from increasing by 2 (source: Copilot.)
+	private bool levelIncreased;
+
+
 	void Awake() {
 		pickupSoundSource = DontDestroy.instance.GetComponents<AudioSource>()[1];
+
+		// This boolean will make sure that the counter variable always goes up by 1 if you touch the purple coin
+		// (source: Copilot.)
+		levelIncreased = false;
 
 		// // DEBUG: This will show the current level on the console
 		// Debug.Log("Current Level: " + currentLevel);
@@ -61,30 +69,45 @@ public class GrabPickups : MonoBehaviour {
     I will make it so that, right before the new level is generated (the Play scene is reset), the counter that
     keeps track of the current level will go up by one. That way, once I reach level 2, the ocunter will say "2"; "3"
     on level "3", and so on and so forth.
+
+	I’ll modify the snippet from GrabPickups.cs so that the counter increases AFTER resetting the Play scene, so that the player stops touching 
+	the coin by the time the counter goes up. This will prevent the level counter from increase more than 1 due to still being touching the purple 
+	coin.
     */
 	void OnControllerColliderHit(ControllerColliderHit hit) {
-		if (hit.gameObject.tag == "Pickup") {
+		if (hit.gameObject.tag == "Pickup" && !levelIncreased) {
 			pickupSoundSource.Play();
 
-			// This will increase the counter by 1 to indicate that you've reached the next level (the next maze)
-			currentLevel += 1;
+			// This will disable the purple coin to prevent a bug in which the level counter increases by 2 instead of 1
+			//when I touch the coin. Supposedly, the coin should be enabled again when the player goes to the next level
+			// (source: Copilot.)
+            hit.gameObject.SetActive(false);
 
-            // DEBUG: This will show the current level on the console
+
+
+           // DEBUG: This will show the current level on the console
 			Debug.Log("Current Level: " + currentLevel);
 
 			// This will reset the maze to give you the illusion that you're going to a new level (the next level)
 			SceneManager.LoadScene("Play");
+
+			// This will increase the counter by 1 to indicate that you've reached the next level (the next maze)
+			currentLevel += 1;
+
+			// This boolean will make sure that the counter variable always goes up by 1 if you touch the purple coin
+			// (source: Copilot.)
+			levelIncreased = true;
 		}
 	}
 
-	/* I have an idea! I will add an Update() function on the GrabPickups.cs file. In it, I will print the current value of the currentLevel 
-	counter. This will be printed 60 times every second. Then, I will eliminate the debug message from the OnColliderHit() function that shows 
-	the current level. That way, the correct current level will always be printed on the console. Sure, the level will be printed 60 times every 
+	/* I have an idea! I will add an Update() function on the GrabPickups.cs file. In it, I will print the current value of the currentLevel
+	counter. This will be printed 60 times every second. Then, I will eliminate the debug message from the OnColliderHit() function that shows
+	the current level. That way, the correct current level will always be printed on the console. Sure, the level will be printed 60 times every
 	second, but, at least it will be always the correct level.
 	*/
-	// void Update() {
+	 void Update() {
 
-	// 	// DEBUG: This will show the current level on the console 60 times every second
-	// 	Debug.Log("Current Level: " + currentLevel);
-	// }
+	 	// DEBUG: This will show the current level on the console 60 times every second
+	 	Debug.Log("Current Level: " + currentLevel);
+	 }
 }

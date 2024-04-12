@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneOnInput : MonoBehaviour {
 
+	// // I will declare the counter which will keep track of the current level of the game (source: VS Code's Copilot)
+	// private static int currentLevel = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -42,13 +45,24 @@ public class LoadSceneOnInput : MonoBehaviour {
 				// This should stop the whispers from playing and eliminate it before going to the Title scene
 				Destroy(WhisperSource);
 
+                // // This resets the level back to 0 if the player dies, so that they start once again from level 1
+			    // currentLevel = 0;
+
 				// This sends the player to the Title scene
 				SceneManager.LoadScene("Title");
+
 			} else if (currentScene == "Title") {
+
+                // // This will increase the counter by 1 to indicate that you've reached the next level (the next maze)
+			    // currentLevel += 1;
+
 				SceneManager.LoadScene("Play");
 			}
 
         //			SceneManager.LoadScene("Play");
 		}
+
+        // // DEBUG: This will show the current level on the console 60 times every second
+	 	// Debug.Log("Current Level: " + currentLevel);
 	}
 }
