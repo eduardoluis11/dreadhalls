@@ -44,12 +44,18 @@ public class GrabPickups : MonoBehaviour {
     I forgot! I need to use static variables PRECISELY to prevent the variable from being reset while resetting the
     scene! That’s what the homework assignment was warning me! So, I will add the keyword “static” to my variable, and
     the currentLevel variable should stop from being reset back to 1!
+
+    Oh! I need to make the currentLevel variable “public” instead of “private” so that I can use it as a global
+    variable. That’s what the distro code did in the Helicopter Game assignment (source: my own Helicopter Game
+    assignment from CS50: https://github.com/eduardoluis11/helicopter-gd50 )
     */
 
-	// I will declare the counter which will keep track of the current level of the game (source: VS Code's Copilot)
-	private static int currentLevel = 1;
+	// I will declare the counter which will keep track of the current level of the game (source: VS Code's Copilot.)
+	// It needs to be "public" so that it turns into a "global variable" (source: my own Helicopter Game
+    // assignment from CS50.)
+	public static int currentLevel = 1;
 
-	// This declares a booolean that will prevent the level counter from increasing by 2 (source: Copilot.)
+	// This declares a boolean that will prevent the level counter from increasing by 2 (source: Copilot.)
 	private bool levelIncreased;
 
 

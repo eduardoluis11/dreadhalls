@@ -180,3 +180,9 @@ and VS Code's copilot generated the "private bool levelIncreased;" line of code 
 in the GrabPickups.cs file.
 
 Accessed on April 12th, 2024.
+
+31) Eduardo Luis Salinas Rivas.
+Helicopter Game assignment.
+Link to Repo: https://github.com/eduardoluis11/helicopter-gd50
+GitHub.
+Accessed on April 12th, 2024.
