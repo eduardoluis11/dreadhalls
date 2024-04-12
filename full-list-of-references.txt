@@ -183,6 +183,21 @@ Accessed on April 12th, 2024.
 
 31) Eduardo Luis Salinas Rivas.
 Helicopter Game assignment.
-Link to Repo: https://github.com/eduardoluis11/helicopter-gd50
+SkyscraperSpawner.cs file from the Helicopter Game Assignment
+Link to Repo: https://github.com/eduardoluis11/helicopter-gd50/blob/main/Assets/Resources/Scripts/SkyscraperSpawner.cs
+GitHub.
+Accessed on April 12th, 2024.
+
+32) Eduardo Luis Salinas Rivas.
+Helicopter Game assignment.
+GameOverText.cs file from the Helicopter Game Assignment
+Link to Repo: https://github.com/eduardoluis11/helicopter-gd50/blob/main/Assets/Resources/Scripts/GameOverText.cs
+GitHub.
+Accessed on April 12th, 2024.
+
+33) Eduardo Luis Salinas Rivas.
+Helicopter Game assignment.
+CoinText.cs file from the Helicopter Game Assignment
+Link to Repo: https://github.com/eduardoluis11/helicopter-gd50/blob/main/Assets/Resources/Scripts/CoinText.cs
 GitHub.
 Accessed on April 12th, 2024.

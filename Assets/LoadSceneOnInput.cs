@@ -29,6 +29,14 @@ public class LoadSceneOnInput : MonoBehaviour {
     The whispers are stored in a variable / file called WhisperSource. This is the Game Object / song that I need to
     destroy when going from the Game Over scene to the Press Start scene.
 
+	Now, I want to reset that counter to 0 if I get a Game Over. I would need to reset the variable back to 0 during
+	the Game Over Scene. Remember what I did for fixing the speed bug in the Helicopter Game homework (heck, I could
+	look at my homework’s repo to see how I was resetting the speed back to 10 after a Game Over).
+
+	After looking at the Helicopter Game code, I may have to use something like the following snippet to reset the
+	currentLevel counter back to 1. I will need to use that snippet in any other script other than the GrabPickups.cs
+	script (for instance, in the OnLoadScene.cs script once I get to the Game Over scene):
+
 	*/
 	void Update () {
 		if (Input.GetAxis("Submit") == 1) {
@@ -45,7 +53,8 @@ public class LoadSceneOnInput : MonoBehaviour {
 				// This should stop the whispers from playing and eliminate it before going to the Title scene
 				Destroy(WhisperSource);
 
-                 // This resets the level back to 0 if the player dies, so that they start once again from level 1
+                // This resets the level back to 1 if the player dies, so that they start once again from level 1
+                // (source: my own code from my submission for GD50's Helicopter Game assignment.)
                 GrabPickups.currentLevel = 1;
 			    // currentLevel = 0;
 
