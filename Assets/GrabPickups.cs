@@ -48,12 +48,16 @@ public class GrabPickups : MonoBehaviour {
     Oh! I need to make the currentLevel variable “public” instead of “private” so that I can use it as a global
     variable. That’s what the distro code did in the Helicopter Game assignment (source: my own Helicopter Game
     assignment from CS50: https://github.com/eduardoluis11/helicopter-gd50 )
+
+    The assignment says that the current level should be “0” after a Game Over. So, if I want, instead of starting at
+    level 1, I could start at level 0, like the assignment suggests. But I’ll keep it as “level” instead of “maze”.
+    “Current maze” sounds a bit weird.
     */
 
 	// I will declare the counter which will keep track of the current level of the game (source: VS Code's Copilot.)
 	// It needs to be "public" so that it turns into a "global variable" (source: my own Helicopter Game
     // assignment from CS50.)
-	public static int currentLevel = 1;
+	public static int currentLevel = 0;
 
 	// This declares a boolean that will prevent the level counter from increasing by 2 (source: Copilot.)
 	private bool levelIncreased;

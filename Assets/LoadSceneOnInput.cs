@@ -53,9 +53,9 @@ public class LoadSceneOnInput : MonoBehaviour {
 				// This should stop the whispers from playing and eliminate it before going to the Title scene
 				Destroy(WhisperSource);
 
-                // This resets the level back to 1 if the player dies, so that they start once again from level 1
+                // This resets the level back to 0 if the player dies, so that they start once again from level 0
                 // (source: my own code from my submission for GD50's Helicopter Game assignment.)
-                GrabPickups.currentLevel = 1;
+                GrabPickups.currentLevel = 0;
 			    // currentLevel = 0;
 
 				// This sends the player to the Title scene
